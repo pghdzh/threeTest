@@ -20,12 +20,13 @@ export class ThreeController {
         renderer.shadowMap.enabled = true;
         renderer.render(scene, camera);
     }
+
+    addObject(...object) {
+        object.forEach(elem => {
+            this.scene.add(elem)
+        })
+    }
+
 }
 
 //外部访问添加模型到场景中
-
-addObject(...object){
-    object.forEach(elem => {
-        this.scene.add(elem)
-    })
-}
