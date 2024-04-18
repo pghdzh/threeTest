@@ -132,3 +132,24 @@ table {
 *::after {
   box-sizing: border-box;
 }
+
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gainsboro;
+  /* 滚动条滑块颜色 */
+  border-radius: 10px;
+}
+
+/* Firefox */
+::-moz-scrollbar {
+  width: 4px;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: gainsboro;
+  border-radius: 10px;
+}

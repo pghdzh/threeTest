@@ -4,25 +4,17 @@
     </div>
 </template>
 <script setup>
-import { ThreeController } from './utils/ThreeController'
-import { ModelListConfig } from './utils/ModelListConfig'
-import { LightList } from './utils/LightListConfig'
-import { allHelper } from './utils/AxesHelperConfig'
 import { onMounted, ref } from 'vue'
-const threeTarget = ref()
-const NewThreeController = ref()
-const init = () => {
-    NewThreeController.value = new ThreeController(threeTarget.value);
-
-    NewThreeController.value.addObject(...ModelListConfig);
-
-    NewThreeController.value.addObject(...LightList);
-
-    NewThreeController.value.addObject(...allHelper);
-}
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+//创建三维场景
+const scene = new THREE.Scene()
+//创建物体
+const geometry = new THREE.SphereGeometry(60, 40, 40);
+//创建材质
 
 onMounted(() => {
-    init()
+
 })
 </script>
 <style scoped lang='scss'>
@@ -31,8 +23,8 @@ onMounted(() => {
     height: 100%;
 
     .three-canvas {
-        width: 100%;
-        height: 100%;
+        width: 200px;
+        height: 200px;
     }
 }
 </style>

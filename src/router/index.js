@@ -9,15 +9,32 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      component: () => import('@/views/HomeView/index.vue'),
+    },
+    {
+      path: '/layout',
+      name: 'layout',
       component: () => import('@/views/Layout/index.vue'),
+      redirect: '/layout/transition/smallCat',
       children: [
         {
-          path: '',
-          name: 'threeTest',
+          path: '/layout/three/threeTest1',
+          name: 'threeTest1',
           component: () => import('@/views/Three/test/index.vue')
-        }
+        },
+        {
+          path: '/layout/three/threeTest2',
+          name: 'threeTest2',
+          component: () => import('@/views/Three/test2/index.vue')
+        },
+        {
+          path: '/layout/transition/smallCat',
+          name: 'smallCat',
+          component: () => import('@/views/Transition/SmallCat/index.vue')
+        },
       ]
     },
+
 
   ],
   scrollBehavior() {

@@ -16,11 +16,16 @@
     "pixi.js": "^6.4.2",
     "sass": "^1.74.1",
     "three": "^0.163.0",
+    "three-css2drender": "^1.0.0",
+    "three-obj-mtl-loader": "^1.0.3",
+    "three-orbit-controls": "^82.1.0",
+    "three-orbitcontrols": "^2.110.3",
     "v-scale-screen": "^2.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@types/three": "^0.163.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.1.6"
   }
