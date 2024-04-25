@@ -18,6 +18,11 @@ const router = createRouter({
       redirect: '/layout/transition/smallCat',
       children: [
         {
+          path: '/layout/transition/smallCat',
+          name: 'smallCat',
+          component: () => import('@/views/Transition/SmallCat/index.vue')
+        },
+        {
           path: '/layout/three/threeTest1',
           name: 'threeTest1',
           component: () => import('@/views/Three/test/index.vue')
@@ -28,10 +33,16 @@ const router = createRouter({
           component: () => import('@/views/Three/test2/index.vue')
         },
         {
-          path: '/layout/transition/smallCat',
-          name: 'smallCat',
-          component: () => import('@/views/Transition/SmallCat/index.vue')
+          path: '/layout/three/threeTest3',
+          name: 'threeTest3',
+          component: () => import('@/views/Three/test3/index.vue')
         },
+        {
+          path: '/layout/three/scene',
+          name: 'threeScene',
+          component: () => import('@/views/Three/Scene/index.vue')
+        },
+
       ]
     },
 
@@ -40,6 +51,15 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0 };
   },
+})
+NProgress.configure({ showSpinner: false });
+router.beforeEach((to, from, next) => {
+  NProgress.start();
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done();
 })
 
 export default router

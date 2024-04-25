@@ -20,7 +20,6 @@
     "three-obj-mtl-loader": "^1.0.3",
     "three-orbit-controls": "^82.1.0",
     "three-orbitcontrols": "^2.110.3",
-    "v-scale-screen": "^2.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

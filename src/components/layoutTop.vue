@@ -27,7 +27,7 @@ const goExample = () => {
     border-bottom: 1px solid gainsboro;
     z-index: 9;
     display: flex;
-
+    align-items: center;
     .homeBtn {
         margin-left: 20px;
         cursor: pointer;

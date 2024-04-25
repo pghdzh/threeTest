@@ -31,8 +31,14 @@ const init = async () => {
     backgroundAlpha: 0,
   });
 
+  // const randNum = Math.floor(Math.random() * 10)
+  // let live2dLoc = './live2d/gy1024/Ganyu1024.model3.json'
+  // if (randNum < 5) {
+  //   live2dLoc = './live2d/nxd1080/Nahida_1080.model3.json'
+  // }
+
   // 打包后live2d资源会出现在dist/下，这里用相对路径就能引用到了
-  model = await Live2DModel.from('./live2d/gy1024/Ganyu1024.model3.json');
+  model = await Live2DModel.from('./live2d/nxd1080/Nahida_1080.model3.json');
   model.trackedPointers = [{ id: 1, type: 'pointerdown', flags: true }, { id: 2, type: 'mousemove', flags: true }]
   app.stage.addChild(model);
   model.scale.set(0.2); // 调整缩放比例，一般原始资源尺寸非常大，需要缩小
@@ -40,7 +46,7 @@ const init = async () => {
 }
 
 onMounted(() => {
-  init()
+  // init()
 })
 
 onBeforeUnmount(() => {
@@ -79,5 +85,4 @@ onBeforeUnmount(() => {
     height: 300px;
   }
 }
-
 </style>

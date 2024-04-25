@@ -3,13 +3,15 @@
         <div class="bigTitle">
             css过渡
         </div>
-        <div class="routerView" v-for="i in transitionRouterPath" @click="changeRouterFun(i)">
+        <div class="routerView" v-for="i in transitionRouterPath" @click="changeRouterFun(i)"
+            :class="{ routerViewSelected: selectedName == i.name }">
             {{ i.name }}
         </div>
         <div class="bigTitle">
             three.js
         </div>
-        <div class="routerView" v-for="i in threeRouterPath" @click="changeRouterFun(i)">
+        <div class="routerView" v-for="i in threeRouterPath" @click="changeRouterFun(i)"
+            :class="{ routerViewSelected: selectedName == i.name }">
             {{ i.name }}
         </div>
     </div>
@@ -26,8 +28,10 @@ const transitionRouterPath = ref([
 ])
 
 const threeRouterPath = ref([
-    { path: '/layout/three/threeTest1', name: '示例1' },
-    { path: '/layout/three/threeTest2', name: '示例2' },
+    { path: '/layout/three/threeTest1', name: '静止圆' },
+    { path: '/layout/three/threeTest2', name: '基础示例' },
+    { path: '/layout/three/threeTest3', name: '图元' },
+    { path: '/layout/three/scene', name: '场景图' },
 ])
 
 const changeRouterFun = (item) => {
@@ -59,6 +63,9 @@ const changeRouterFun = (item) => {
         margin-bottom: 8px 0;
         height: 40px;
         line-height: 40px;
+        padding-left: 20px;
+        font-weight: 600;
+        margin: 10px 0;
     }
 
     .routerViewSelected {

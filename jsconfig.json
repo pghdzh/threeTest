@@ -20,10 +20,5 @@
     }
   },
   "include": ["src/**/*.js", "src/**/*.d.js", "src/**/*.vue"],
-  "references": [
-    {
-      "path": "./jsconfig.node.json"
-    }
-  ],
   "exclude": ["node_modules"]
 }
