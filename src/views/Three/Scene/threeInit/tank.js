@@ -5,10 +5,10 @@ export default (threeRef, tankInfoRef) => {
     threeRef.value.appendChild(renderer.domElement)
     renderer.setSize(600, 300)//设置渲染区尺寸
 
-    renderer.setClaerColor(0xAAAAAA);//设置背景颜色
+    renderer.setClearColor(0xAAAAAA);//设置背景颜色
     renderer.shadowMap.enabled = true;
 
-
+    //生成默认相机
     function makeCamera(fov = 40) {
         const aspect = 2;
         const zNear = 0.1;
@@ -63,7 +63,8 @@ export default (threeRef, tankInfoRef) => {
     scene.add(tank);
 
     const bodyGeometry = new THREE.BoxGeometry(carWidth, carHeight, carLength);
-    const bodyMaterial = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0x6688AA });
+    const bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
     bodyMesh.position.y = 1.4;
     bodyMesh.castShadow = true;
     tank.add(bodyMesh);
@@ -98,7 +99,7 @@ export default (threeRef, tankInfoRef) => {
         const mesh = new THREE.Mesh(wheelGeometry, wheelMaterial);
         mesh.position.set(...position);
         mesh.rotation.z = Math.PI * .5;
-        mesh.castShadow = tru;
+        mesh.castShadow = true;
         bodyMesh.add(mesh);
         return mesh;
     })
@@ -116,7 +117,7 @@ export default (threeRef, tankInfoRef) => {
         domePhiStart, domePhiEnd, domeThetaStart, domePhiEnd
     );
     const domeMesh = new THREE.Mesh(domeGeometry, bodyMaterial);
-    domeMesh.add(domeMesh);
+    bodyMesh.add(domeMesh);
     domeMesh.position.y = .5;
 
     const turretWidth = .1;
@@ -147,6 +148,7 @@ export default (threeRef, tankInfoRef) => {
     const targetBob = new THREE.Object3D();
     targetMesh.castShadow = true;
     scene.add(targetOrbit);
+    targetOrbit.add(targetElevation)
     targetElevation.position.z = carLength * 2;
     targetElevation.position.y = 8;
     targetElevation.add(targetBob);
@@ -199,7 +201,7 @@ export default (threeRef, tankInfoRef) => {
     const tankTarget = new THREE.Vector2();
 
     const cameras = [
-        { cam: camera, desc: '独立摄像机' }
+        { cam: camera, desc: '独立摄像机' },
         { cam: turretCamera, desc: '位于炮塔上，朝向目标', },
         { cam: targetCamera, desc: '靠近目标，朝向坦克', },
         { cam: tankCamera, desc: '在坦克背部上方', },
@@ -235,12 +237,26 @@ export default (threeRef, tankInfoRef) => {
         tank.lookAt(tankTarget.x, 0, tankTarget.y);
 
         //炮塔朝向目标
-        targetMesh.getWorldPosition(tankPosition);
-        turretPivot.lookAt(tankPosition);
+        targetMesh.getWorldPosition(targetPosition);
+        turretPivot.lookAt(targetPosition);
 
         //炮塔摄像机朝向目标
         turretCamera.lookAt(targetPosition);
 
-        
+        //目标摄像头朝向坦克
+        tank.getWorldPosition(targetPosition);
+        targetCameraPivot.lookAt(targetPosition);
+
+        wheelMeshes.forEach((obj) => {
+            obj.rotation.x = time * 3;
+        })
+
+        const camera = cameras[time * .25 % cameras.length | 0];
+        infoElem.textContent = camera.desc;
+
+        renderer.render(scene, camera.cam);
+
+        requestAnimationFrame(render);
     }
+    requestAnimationFrame(render);
 }

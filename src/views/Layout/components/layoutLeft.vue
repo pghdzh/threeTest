@@ -28,10 +28,11 @@ const transitionRouterPath = ref([
 ])
 
 const threeRouterPath = ref([
-    { path: '/layout/three/threeTest1', name: '静止圆' },
-    { path: '/layout/three/threeTest2', name: '基础示例' },
     { path: '/layout/three/threeTest3', name: '图元' },
     { path: '/layout/three/scene', name: '场景图' },
+    { path: '/layout/three/light', name: '灯光' },
+    { path: '/layout/three/camera', name: '相机' },
+
 ])
 
 const changeRouterFun = (item) => {

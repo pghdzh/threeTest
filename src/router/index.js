@@ -23,16 +23,6 @@ const router = createRouter({
           component: () => import('@/views/Transition/SmallCat/index.vue')
         },
         {
-          path: '/layout/three/threeTest1',
-          name: 'threeTest1',
-          component: () => import('@/views/Three/test/index.vue')
-        },
-        {
-          path: '/layout/three/threeTest2',
-          name: 'threeTest2',
-          component: () => import('@/views/Three/test2/index.vue')
-        },
-        {
           path: '/layout/three/threeTest3',
           name: 'threeTest3',
           component: () => import('@/views/Three/test3/index.vue')
@@ -42,6 +32,16 @@ const router = createRouter({
           name: 'threeScene',
           component: () => import('@/views/Three/Scene/index.vue')
         },
+        {
+          path: '/layout/three/light',
+          name: 'threeLight',
+          component: () => import('@/views/Three/Light/index.vue')
+        },
+        {
+          path: '/layout/three/camera',
+          name: 'threeCamera',
+          component: () => import('@/views/Three/Camera/index.vue')
+        }
 
       ]
     },
