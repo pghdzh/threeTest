@@ -32,7 +32,7 @@ const threeRouterPath = ref([
     { path: '/layout/three/scene', name: '场景图' },
     { path: '/layout/three/light', name: '灯光' },
     { path: '/layout/three/camera', name: '相机' },
-
+    { path: '/layout/three/shadow', name: '阴影' }
 ])
 
 const changeRouterFun = (item) => {

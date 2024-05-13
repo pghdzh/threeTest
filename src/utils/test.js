@@ -1,9 +1,12 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 function main() {
 
 	const canvas = document.querySelector( '#c' );
 	const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
+	renderer.shadowMap.enabled = true;
 
 	const fov = 45;
 	const aspect = 2; // the canvas default
@@ -11,17 +14,19 @@ function main() {
 	const far = 100;
 	const camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
 	camera.position.set( 0, 10, 20 );
-	camera.lookAt( 0, 0, 0 );
+
+	const controls = new OrbitControls( camera, canvas );
+	controls.target.set( 0, 5, 0 );
+	controls.update();
 
 	const scene = new THREE.Scene();
-	scene.background = new THREE.Color( 'white' );
-
-	const loader = new THREE.TextureLoader();
+	scene.background = new THREE.Color( 'black' );
 
 	{
 
 		const planeSize = 40;
 
+		const loader = new THREE.TextureLoader();
 		const texture = loader.load( 'https://threejs.org/manual/examples/resources/images/checker.png' );
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
@@ -31,87 +36,157 @@ function main() {
 		texture.repeat.set( repeats, repeats );
 
 		const planeGeo = new THREE.PlaneGeometry( planeSize, planeSize );
-		const planeMat = new THREE.MeshBasicMaterial( {
+		const planeMat = new THREE.MeshPhongMaterial( {
 			map: texture,
 			side: THREE.DoubleSide,
 		} );
-		planeMat.color.setRGB( 1.5, 1.5, 1.5 );
 		const mesh = new THREE.Mesh( planeGeo, planeMat );
+		mesh.receiveShadow = true;
 		mesh.rotation.x = Math.PI * - .5;
 		scene.add( mesh );
 
 	}
 
-	const shadowTexture = loader.load( 'https://threejs.org/manual/examples/resources/images/roundshadow.png' );
-	const sphereShadowBases = [];
 	{
 
-		const sphereRadius = 1;
-		const sphereWidthDivisions = 32;
-		const sphereHeightDivisions = 16;
-		const sphereGeo = new THREE.SphereGeometry( sphereRadius, sphereWidthDivisions, sphereHeightDivisions );
-
-		const planeSize = 1;
-		const shadowGeo = new THREE.PlaneGeometry( planeSize, planeSize );
-
-		const numSpheres = 15;
-		for ( let i = 0; i < numSpheres; ++ i ) {
-
-			// make a base for the shadow and the sphere.
-			// so they move together.
-			const base = new THREE.Object3D();
-			scene.add( base );
-
-			// add the shadow to the base
-			// note: we make a new material for each sphere
-			// so we can set that sphere's material transparency
-			// separately.
-			const shadowMat = new THREE.MeshBasicMaterial( {
-				map: shadowTexture,
-				transparent: true, // so we can see the ground
-				depthWrite: false, // so we don't have to sort
-			} );
-			const shadowMesh = new THREE.Mesh( shadowGeo, shadowMat );
-			shadowMesh.position.y = 0.001; // so we're above the ground slightly
-			shadowMesh.rotation.x = Math.PI * - .5;
-			const shadowSize = sphereRadius * 4;
-			shadowMesh.scale.set( shadowSize, shadowSize, shadowSize );
-			base.add( shadowMesh );
-
-			// add the sphere to the base
-			const u = i / numSpheres;
-			const sphereMat = new THREE.MeshPhongMaterial();
-			sphereMat.color.setHSL( u, 1, .75 );
-			const sphereMesh = new THREE.Mesh( sphereGeo, sphereMat );
-			sphereMesh.position.set( 0, sphereRadius + 2, 0 );
-			base.add( sphereMesh );
-
-			// remember all 3 plus the y position
-			sphereShadowBases.push( { base, sphereMesh, shadowMesh, y: sphereMesh.position.y } );
-
-		}
+		const cubeSize = 4;
+		const cubeGeo = new THREE.BoxGeometry( cubeSize, cubeSize, cubeSize );
+		const cubeMat = new THREE.MeshPhongMaterial( { color: '#8AC' } );
+		const mesh = new THREE.Mesh( cubeGeo, cubeMat );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		mesh.position.set( cubeSize + 1, cubeSize / 2, 0 );
+		scene.add( mesh );
 
 	}
 
 	{
 
-		const skyColor = 0xB1E1FF; // light blue
-		const groundColor = 0xB97A20; // brownish orange
-		const intensity = 0.75;
-		const light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
-		scene.add( light );
+		const cubeSize = 30;
+		const cubeGeo = new THREE.BoxGeometry( cubeSize, cubeSize, cubeSize );
+		const cubeMat = new THREE.MeshPhongMaterial( {
+			color: '#CCC',
+			side: THREE.BackSide,
+		} );
+		const mesh = new THREE.Mesh( cubeGeo, cubeMat );
+		mesh.receiveShadow = true;
+		mesh.position.set( 0, cubeSize / 2 - 0.1, 0 );
+		scene.add( mesh );
+
+	}
+
+	{
+
+		const sphereRadius = 3;
+		const sphereWidthDivisions = 32;
+		const sphereHeightDivisions = 16;
+		const sphereGeo = new THREE.SphereGeometry( sphereRadius, sphereWidthDivisions, sphereHeightDivisions );
+		const sphereMat = new THREE.MeshPhongMaterial( { color: '#CA8' } );
+		const mesh = new THREE.Mesh( sphereGeo, sphereMat );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
+		mesh.position.set( - sphereRadius - 1, sphereRadius + 2, 0 );
+		scene.add( mesh );
+
+	}
+
+	class ColorGUIHelper {
+
+		constructor( object, prop ) {
+
+			this.object = object;
+			this.prop = prop;
+
+		}
+		get value() {
+
+			return `#${this.object[ this.prop ].getHexString()}`;
+
+		}
+		set value( hexString ) {
+
+			this.object[ this.prop ].set( hexString );
+
+		}
+
+	}
+
+	function makeXYZGUI( gui, vector3, name, onChangeFn ) {
+
+		const folder = gui.addFolder( name );
+		folder.add( vector3, 'x', - 10, 10 ).onChange( onChangeFn );
+		folder.add( vector3, 'y', 0, 10 ).onChange( onChangeFn );
+		folder.add( vector3, 'z', - 10, 10 ).onChange( onChangeFn );
+		// folder.open();
 
 	}
 
 	{
 
 		const color = 0xFFFFFF;
-		const intensity = 2.5;
-		const light = new THREE.DirectionalLight( color, intensity );
-		light.position.set( 0, 10, 5 );
-		light.target.position.set( - 5, 0, 0 );
+		const intensity = 100;
+		const light = new THREE.PointLight( color, intensity );
+		light.castShadow = true;
+		light.position.set( 0, 10, 0 );
 		scene.add( light );
-		scene.add( light.target );
+
+		const helper = new THREE.PointLightHelper( light );
+		scene.add( helper );
+
+		function updateCamera() {
+		}
+
+		class MinMaxGUIHelper {
+
+			constructor( obj, minProp, maxProp, minDif ) {
+
+				this.obj = obj;
+				this.minProp = minProp;
+				this.maxProp = maxProp;
+				this.minDif = minDif;
+
+			}
+			get min() {
+
+				return this.obj[ this.minProp ];
+
+			}
+			set min( v ) {
+
+				this.obj[ this.minProp ] = v;
+				this.obj[ this.maxProp ] = Math.max( this.obj[ this.maxProp ], v + this.minDif );
+
+			}
+			get max() {
+
+				return this.obj[ this.maxProp ];
+
+			}
+			set max( v ) {
+
+				this.obj[ this.maxProp ] = v;
+				this.min = this.min; // this will call the min setter
+
+			}
+
+		}
+
+		const gui = new GUI();
+		gui.addColor( new ColorGUIHelper( light, 'color' ), 'value' ).name( 'color' );
+		gui.add( light, 'intensity', 0, 200 );
+		gui.add( light, 'distance', 0, 40 ).onChange( updateCamera );
+
+		{
+
+			const folder = gui.addFolder( 'Shadow Camera' );
+			folder.open();
+			const minMaxGUIHelper = new MinMaxGUIHelper( light.shadow.camera, 'near', 'far', 0.1 );
+			folder.add( minMaxGUIHelper, 'min', 0.1, 50, 0.1 ).name( 'near' ).onChange( updateCamera );
+			folder.add( minMaxGUIHelper, 'max', 0.1, 50, 0.1 ).name( 'far' ).onChange( updateCamera );
+
+		}
+
+		makeXYZGUI( gui, light.position, 'position', updateCamera );
 
 	}
 
@@ -131,9 +206,7 @@ function main() {
 
 	}
 
-	function render( time ) {
-
-		time *= 0.001; // convert to seconds
+	function render() {
 
 		resizeRendererToDisplaySize( renderer );
 
@@ -144,29 +217,6 @@ function main() {
 			camera.updateProjectionMatrix();
 
 		}
-
-		sphereShadowBases.forEach( ( sphereShadowBase, ndx ) => {
-
-			const { base, sphereMesh, shadowMesh, y } = sphereShadowBase;
-
-			// u is a value that goes from 0 to 1 as we iterate the spheres
-			const u = ndx / sphereShadowBases.length;
-
-			// compute a position for there base. This will move
-			// both the sphere and its shadow
-			const speed = time * .2;
-			const angle = speed + u * Math.PI * 2 * ( ndx % 1 ? 1 : - 1 );
-			const radius = Math.sin( speed - ndx ) * 10;
-			base.position.set( Math.cos( angle ) * radius, 0, Math.sin( angle ) * radius );
-
-			// yOff is a value that goes from 0 to 1
-			const yOff = Math.abs( Math.sin( time * 2 + ndx ) );
-			// move the sphere up and down
-			sphereMesh.position.y = y + THREE.MathUtils.lerp( - 2, 2, yOff );
-			// fade the shadow as the sphere goes up
-			shadowMesh.material.opacity = THREE.MathUtils.lerp( 1, .25, yOff );
-
-		} );
 
 		renderer.render( scene, camera );
 

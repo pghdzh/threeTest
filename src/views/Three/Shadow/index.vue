@@ -1,15 +1,25 @@
 <template>
-    <div>
-        <div class="shadowRef"></div>
+    <div class="content">
+        <div ref="shadowRef"></div>
+        <div ref="SpotLightShadowRef"></div>
+        <div ref="PointLightShadowRef"></div>
     </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
-
+import initShadow from './threeInit/initShadow';
+import initSpotLightShadow from './threeInit/initSpotLightShadow'
 const shadowRef = ref()
-
+const SpotLightShadowRef = ref()
 onMounted(() => {
-
+    initShadow(shadowRef)
+    initSpotLightShadow(SpotLightShadowRef)
 })
 </script>
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+</style>
