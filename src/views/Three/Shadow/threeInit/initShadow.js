@@ -95,23 +95,10 @@ export default (threeRef) => {
         scene.add(light.target);
     }
 
-    const resizeRendererToDisplaySize = (renderer) => {
-        const canvas = renderer.domElement;
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-        const needResize = canvas.width !== width || canvas.height !== height;
-        if (needResize) {
-            renderer.setSize(width, height, false);
-        }
-
-        return needResize;
-    }
+  
 
     const render = (time) => {
         time *= 0.001;
-
-        resizeRendererToDisplaySize(renderer);
-
         {
             const canvas = renderer.domElement;
             camera.aspect = canvas.clientWidth / canvas.clientHeight;

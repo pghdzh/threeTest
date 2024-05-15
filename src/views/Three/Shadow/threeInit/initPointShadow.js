@@ -7,6 +7,7 @@ export default (threeRef) => {
     const canvas = renderer.domElement
     threeRef.value.appendChild(canvas)
     renderer.shadowMap.enabled = true;
+    renderer.setSize(800, 400)
 
     const camera = new THREE.PerspectiveCamera(45, 2, .1, 100)
     camera.position.set(0, 10, 20);
@@ -113,6 +114,9 @@ export default (threeRef) => {
         const helper = new THREE.PointLight(light);
         scene.add(helper);
 
+        function updateCamera() {
+        }
+
         class MinMaxGUIHelper {
 
             constructor(obj, minProp, maxProp, minDif) {
@@ -140,12 +144,39 @@ export default (threeRef) => {
 
             }
             set max(v) {
-
                 this.obj[this.maxProp] = v;
-                this.min = this.min; // this will call the min setter
-
+                this.min = this.min; //这个会调用min的setter确保max大于min
             }
-
         }
+
+
+        const gui = new GUI();
+        gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('光的颜色');
+        gui.add(light, '光的强度', 0, 200)
+        gui.add(light, '相机的距离', 0, 40).onChange(updateCamera);
+        gui.domElement.style.position = 'absolute';
+        gui.domElement.style.top = '400px';
+        gui.domElement.style.right = '10px';
+        {
+            const folder = gui.addFolder('阴影相机');
+            folder.open();
+            const minMaxGUIHelper = new MinMaxGUIHelper(light.shadow.camera, '近裁剪面', '远裁剪面', 0.1);
+            folder.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('近裁剪面').onChange(updateCamera)
+            folder.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('远裁剪面').onChange(updateCamera)
+        }
+
+        makeXYZGUI(gui, light.position, '位置', updateCamera);
+
     }
+
+    const render = () => {
+        {
+            const canvas = renderer.domElement;
+            camera.updateProjectionMatrix()
+        }
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
 }
