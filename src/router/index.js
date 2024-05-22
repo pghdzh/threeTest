@@ -46,8 +46,22 @@ const router = createRouter({
           path: '/layout/three/shadow',
           name: 'shadow',//阴影
           component: () => import('@/views/Three/Shadow/index.vue')
+        },
+        {
+          path: '/layout/three/fog',
+          name: 'fog',//雾
+          component: () => import('@/views/Three/fog/index.vue')
+        },
+        {
+          path: '/layout/three/gift',
+          name: 'gift',//导入gift
+          component: () => import('@/views/Three/Gift/index.vue')
+        },
+        {
+          path: '/layout/three/starryNight',//星空
+          name: 'starryNight',
+          component: () => import('@/views/Three/StarryNight/index.vue')
         }
-
       ]
     },
 

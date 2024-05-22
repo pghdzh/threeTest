@@ -4,8 +4,12 @@
     </div>
 </template>
 <script  setup>
-import { ref } from 'vue'
-
+import { ref, onMounted } from 'vue'
+import initFog from './threeInit/intFog'
 const fogRef = ref()
+
+onMounted(() => {
+    initFog(fogRef)
+})
 </script>
 <style scoped lang='scss'></style>

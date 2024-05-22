@@ -111,10 +111,11 @@ export default (threeRef) => {
         light.position.set(0, 10, 0);
         scene.add(light);
 
-        const helper = new THREE.PointLight(light);
+        const helper = new THREE.PointLightHelper(light);
         scene.add(helper);
 
         function updateCamera() {
+            light.shadow.camera.updateProjectionMatrix();
         }
 
         class MinMaxGUIHelper {
@@ -151,16 +152,16 @@ export default (threeRef) => {
 
 
         const gui = new GUI();
-        gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('光的颜色');
-        gui.add(light, '光的强度', 0, 200)
-        gui.add(light, '相机的距离', 0, 40).onChange(updateCamera);
+        gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('颜色');
+        gui.add(light, 'intensity', 0, 200).name('光的强度')
+        gui.add(light, 'distance', 0, 40).name('距离').onChange(updateCamera);
         gui.domElement.style.position = 'absolute';
-        gui.domElement.style.top = '400px';
+        gui.domElement.style.top = '600px';
         gui.domElement.style.right = '10px';
         {
             const folder = gui.addFolder('阴影相机');
             folder.open();
-            const minMaxGUIHelper = new MinMaxGUIHelper(light.shadow.camera, '近裁剪面', '远裁剪面', 0.1);
+            const minMaxGUIHelper = new MinMaxGUIHelper(light.shadow.camera, 'near', 'far', 0.1);
             folder.add(minMaxGUIHelper, 'min', 0.1, 50, 0.1).name('近裁剪面').onChange(updateCamera)
             folder.add(minMaxGUIHelper, 'max', 0.1, 50, 0.1).name('远裁剪面').onChange(updateCamera)
         }
