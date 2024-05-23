@@ -36,7 +36,10 @@ const threeRouterPath = ref([
     { path: '/layout/three/shadow', name: '阴影' },
     { path: '/layout/three/fog', name: '雾' },
     { path: '/layout/three/gift', name: '导入gift' },
-    { path: '/layout/three/starryNight', name: '粒子随机移动' }
+    { path: '/layout/three/starryNight', name: '粒子随机移动' },
+    { path: '/layout/three/BuffergInstacing', name: '大量实例化缓冲几何体' },
+    { path: '/layout/three/snowflake', name: '雪花' },
+    { path: '/layout/three/misc_lookAt', name: '视线追踪' }
 ])
 
 const changeRouterFun = (item) => {

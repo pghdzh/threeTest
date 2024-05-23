@@ -58,9 +58,24 @@ const router = createRouter({
           component: () => import('@/views/Three/Gift/index.vue')
         },
         {
-          path: '/layout/three/starryNight',//星空
+          path: '/layout/three/starryNight',//粒子
           name: 'starryNight',
           component: () => import('@/views/Three/StarryNight/index.vue')
+        },
+        {
+          path: '/layout/three/BuffergInstacing',//大量实例化缓冲几何体
+          name: 'BuffergInstacing',
+          component: () => import('@/views/Three/BuffergeometryInstancing/index.vue')
+        },
+        {
+          path: '/layout/three/snowflake',//雪花
+          name: 'snowflake',
+          component: () => import('@/views/Three/snowflake/index.vue')
+        },
+        {
+          path: '/layout/three/misc_lookAt',//视线追踪
+          name: 'lookAt',
+          component: () => import("@/views/Three/misc_lookAt/index.vue")
         }
       ]
     },
