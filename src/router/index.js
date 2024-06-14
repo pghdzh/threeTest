@@ -15,12 +15,22 @@ const router = createRouter({
       path: '/layout',
       name: 'layout',
       component: () => import('@/views/Layout/index.vue'),
-      redirect: '/layout/transition/smallCat',
+      redirect: '/layout/three/threeTest3',
       children: [
         {
           path: '/layout/transition/smallCat',
-          name: 'smallCat',
+          name: 'smallCat',//猫
           component: () => import('@/views/Transition/SmallCat/index.vue')
+        },
+        {
+          path: '/layout/echarts/3dMap',
+          name: '3dMap',//3d地图
+          component: () => import('@/views/Echarts/3dMap/index.vue')
+        },
+        {
+          path: '/layout/echarts/wordCloud',
+          name: 'wordCloud',//词云
+          component: () => import('@/views/Echarts/wordCloud/index.vue')
         },
         {
           path: '/layout/three/threeTest3',
@@ -76,7 +86,23 @@ const router = createRouter({
           path: '/layout/three/misc_lookAt',//视线追踪
           name: 'lookAt',
           component: () => import("@/views/Three/misc_lookAt/index.vue")
-        }
+        },
+        {
+          path: '/layout/three/fantasticalCube',//奇幻正方体
+          name: 'fantasticalCube',
+          component: () => import("@/views/Three/fantasticalCube/index.vue")
+        },
+        {
+          path: '/layout/three/orbit',//轨道控制器
+          name: 'orbit',
+          component: () => import("@/views/Three/orbit/index.vue")
+        },
+        {
+          path: '/layout/three/css3d_periodictable',//元素周期表
+          name: 'periodictable',
+          component: () => import('@/views/Three/css3d_periodictable/index.vue')
+        },
+
       ]
     },
 
