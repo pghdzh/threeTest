@@ -5,17 +5,25 @@
     </div>
     <div ref="tankInfoRef" id="info"></div>
 </template>
-<script  setup>
+<script setup>
 import initThreeScene from './threeInit/solarSys'
 import initTank from './threeInit/tank'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onUnmounted } from 'vue';
 
 const threeRef = ref()
 const threeTankRef = ref()
 const tankInfoRef = ref()
+let gui;
 onMounted(() => {
-    initThreeScene(threeRef)
-    initTank(threeTankRef,tankInfoRef)
+    gui = initThreeScene(threeRef).gui
+    initTank(threeTankRef, tankInfoRef)
+})
+
+onUnmounted(() => {
+    if (gui) {
+        gui.destroy();
+        gui = null;
+    }
 })
 </script>
 <style scoped lang='scss'>

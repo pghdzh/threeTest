@@ -9,16 +9,41 @@
     </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import initCamera from './threeInit/initCamera'
 
 const cameraRef = ref()
 const view1 = ref()
 const view2 = ref()
-
+let controls, controls2, renderer, gui;
 onMounted(() => {
-    initCamera(cameraRef, view1, view2)
+    const res = initCamera(cameraRef, view1, view2)
+    controls = res.controls
+    controls2 = res.controls2
+    renderer = res.renderer
+    gui = res.gui
 })
+onUnmounted(() => {
+    // 销毁 OrbitControls
+    if (controls) {
+        controls.dispose();
+        controls = null;
+    }
+    if (controls2) {
+        controls2.dispose();
+        controls2 = null;
+    }
+    if (gui) {
+        gui.destroy();
+        gui = null;
+    }
+
+    // 销毁 Three.js 场景
+    if (renderer) {
+        renderer.dispose();
+        renderer = null;
+    }
+});
 </script>
 <style scoped lang='scss'>
 .canvasArea {

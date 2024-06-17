@@ -16,7 +16,7 @@ const goHome = () => {
 }
 
 const goExample = () => {
-    router.push('/layout/transition/smallCat')
+    router.push('/layout')
 }
 </script>
 <style scoped lang='scss'>

@@ -93,4 +93,5 @@ export default (threeRef) => {
         requestAnimationFrame(render)
     }
     requestAnimationFrame(render)
+    return { gui }
 }

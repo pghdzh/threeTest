@@ -220,5 +220,5 @@ export default (cameraRef, view1, view2) => {
 
     requestAnimationFrame(render);
 
-
+    return { controls, controls2, renderer, gui }
 }

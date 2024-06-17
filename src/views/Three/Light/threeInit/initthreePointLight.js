@@ -91,7 +91,7 @@ export default (threeRef) => {
         folder.add(Vector3, 'z', -10, 10).onChange(onChangeFn);
         folder.open();
     }
-
+    const gui = new GUI();
     {
         const color = 0xFFFFF;
         const intensity = 150;
@@ -106,7 +106,7 @@ export default (threeRef) => {
             helper.update();
         }
 
-        const gui = new GUI();
+
         gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
         gui.add(light, 'intensity', 0, 250, 1);
         gui.add(light, 'distance', 0, 40).onChange(updateLight);
@@ -150,4 +150,5 @@ export default (threeRef) => {
     }
 
     requestAnimationFrame(render);
+    return { gui }
 }

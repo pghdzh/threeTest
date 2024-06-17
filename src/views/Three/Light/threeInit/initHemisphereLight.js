@@ -77,7 +77,7 @@ export default (threeRef) => {
             this.object[this.prop].set(hexString);
         }
     }
-
+    const gui = new GUI();
     {
         const skyColor = 0xB1E1FF;
         const groundColor = 0xB97A20;
@@ -85,7 +85,7 @@ export default (threeRef) => {
         const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
         scene.add(light);
 
-        const gui = new GUI();
+
         gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('skyColor');
         gui.addColor(new ColorGUIHelper(light, 'groundColor'), 'value').name('groundColor');
         gui.add(light, 'intensity', 0, 5, 0.01);
@@ -117,4 +117,5 @@ export default (threeRef) => {
     }
 
     requestAnimationFrame(render);
+    return { gui }
 }

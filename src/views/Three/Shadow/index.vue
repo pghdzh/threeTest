@@ -6,17 +6,29 @@
     </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import initShadow from './threeInit/initShadow';
 import initSpotLightShadow from './threeInit/initSpotLightShadow'
 import initPointShadow from './threeInit/initPointShadow';
 const shadowRef = ref()
 const SpotLightShadowRef = ref()
 const PointLightShadowRef = ref()
+let gui1, gui2;
 onMounted(() => {
     initShadow(shadowRef)
-    initSpotLightShadow(SpotLightShadowRef)
-    initPointShadow(PointLightShadowRef)
+    gui1 = initSpotLightShadow(SpotLightShadowRef).gui
+    gui2 = initPointShadow(PointLightShadowRef).gui
+})
+
+onUnmounted(() => {
+    if(gui1){
+        gui1.destroy();
+        gui1 = null;
+    }
+    if(gui2){
+        gui2.destroy();
+        gui2 = null;
+    }
 })
 </script>
 <style scoped lang='scss'>

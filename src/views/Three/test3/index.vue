@@ -21,6 +21,7 @@ const initThreeModel = () => {
     const scene = new THREE.Scene()
     //几何体
     const shape = new THREE.Shape()
+    shape.flipY = false; // 修改纹理的属性是可以接受
     const x = -2.5
     const y = -5
     shape.moveTo(x + 2.5, y + 2.5)

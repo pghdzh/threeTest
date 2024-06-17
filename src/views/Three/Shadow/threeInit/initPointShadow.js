@@ -104,7 +104,7 @@ export default (threeRef) => {
         folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
 
     }
-
+    const gui = new GUI();
     {
         const light = new THREE.PointLight(0xffffff, 100);
         light.castShadow = true;
@@ -151,7 +151,7 @@ export default (threeRef) => {
         }
 
 
-        const gui = new GUI();
+
         gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('颜色');
         gui.add(light, 'intensity', 0, 200).name('光的强度')
         gui.add(light, 'distance', 0, 40).name('距离').onChange(updateCamera);
@@ -180,4 +180,5 @@ export default (threeRef) => {
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
+    return { gui }
 }

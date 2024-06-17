@@ -57,7 +57,7 @@ export default (threeRef) => {
         scene.add(light);
 
     }
-
+    const gui = new GUI();
     {
 
         const color = 0xFFFFFF;
@@ -193,7 +193,7 @@ export default (threeRef) => {
 
         }
 
-        const gui = new GUI();
+     
         gui.close();
         gui.add(new VisibleGUIHelper(helper, cameraHelper), 'value').name('show helpers');
         gui.add(light.shadow, 'bias', - 0.1, 0.1, 0.001);
@@ -432,5 +432,5 @@ export default (threeRef) => {
     }
 
     requestAnimationFrame(render);
-
+    return { gui }
 }

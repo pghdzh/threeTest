@@ -34,28 +34,28 @@ const leftNavData = ref(
         titleName: 'three.js',
         isExpand: true,
         RouterPath: [
-            { path: '/layout/three/threeTest3', name: '图元' },
-            { path: '/layout/three/scene', name: '场景图' },
-            { path: '/layout/three/light', name: '灯光' },
-            { path: '/layout/three/camera', name: '相机' },
-            { path: '/layout/three/shadow', name: '阴影' },
-            { path: '/layout/three/fog', name: '雾' },
-            { path: '/layout/three/gift', name: '导入gift' },
-            { path: '/layout/three/starryNight', name: '粒子随机移动' },
-            { path: '/layout/three/BuffergInstacing', name: '大量实例化缓冲几何体' },
-            { path: '/layout/three/snowflake', name: '雪花' },
-            { path: '/layout/three/misc_lookAt', name: '视线追踪' },
-            { path: '/layout/three/fantasticalCube', name: '奇幻正方体' },
-            { path: '/layout/three/orbit', name: '轨道控制器', },
-            { path: '/layout/three/css3d_periodictable', name: '元素周期表' },
+            { path: '/three/threeTest3', name: '图元' },
+            { path: '/three/scene', name: '场景图' },
+            { path: '/three/light', name: '灯光' },
+            { path: '/three/camera', name: '相机' },
+            { path: '/three/shadow', name: '阴影' },
+            { path: '/three/fog', name: '雾' },
+            { path: '/three/gift', name: '导入gift' },
+            { path: '/three/starryNight', name: '粒子随机移动' },
+            { path: '/three/BuffergInstacing', name: '大量实例化缓冲几何体' },
+            { path: '/three/snowflake', name: '雪花' },
+            { path: '/three/misc_lookAt', name: '视线追踪' },
+            { path: '/three/fantasticalCube', name: '奇幻正方体' },
+            { path: '/three/orbit', name: '轨道控制器', },
+            { path: '/three/css3d_periodictable', name: '元素周期表' },
         ]
     },
     {
         titleName: 'echarts',
         isExpand: false,
         RouterPath: [
-            { name: '3D地图', path: '/layout/echarts/3dMap' },
-            { name: '词云', path: '/layout/echarts/wordCloud' }
+            { name: '3D地图', path: '/echarts/3dMap' },
+            { name: '词云', path: '/echarts/wordCloud' }
         ]
 
     },
@@ -63,7 +63,7 @@ const leftNavData = ref(
         titleName: 'css动画',
         isExpand: false,
         RouterPath: [
-            { name: '猫', path: '/layout/transition/smallCat' },
+            { name: '猫', path: '/transition/smallCat' },
         ]
 
     },]
@@ -76,7 +76,7 @@ const changeRouterFun = (item) => {
 }
 
 onMounted(() => {
-    router.push('/layout/three/threeTest3')
+    router.push('/three/threeTest3')
 })
 </script>
 <style scoped lang='scss'>

@@ -80,14 +80,14 @@ export default (threeRef) => {
             this.object[this.prop].set(hexString);
         }
     }
-
+    const gui = new GUI();
     {
         const color = 0xFFFFFF;
         const intensity = 1;
         const light = new THREE.AmbientLight(color, intensity);
         scene.add(light);
 
-        const gui = new GUI();
+
         gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color')
         gui.add(light, 'intensity', 0, 5, 0.01)
         gui.domElement.style.position = 'absolute';
@@ -121,4 +121,5 @@ export default (threeRef) => {
     }
 
     requestAnimationFrame(render);
+    return { gui }
 }

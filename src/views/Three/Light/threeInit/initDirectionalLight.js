@@ -70,14 +70,14 @@ export default (threeRef) => {
         }
     }
 
-    const makeXYZGUI=(gui, vector3, name, onChangeFn)=>{
+    const makeXYZGUI = (gui, vector3, name, onChangeFn) => {
         const folder = gui.addFolder(name);
         folder.add(vector3, 'x', -10, 10).onChange(onChangeFn);
         folder.add(vector3, 'y', 0, 10).onChange(onChangeFn);
         folder.add(vector3, 'z', -10, 10).onChange(onChangeFn);
         folder.open()
     }
-
+    const gui = new GUI();
     {
         const color = 0xffffff;
         const intensity = 1;
@@ -94,7 +94,7 @@ export default (threeRef) => {
         }
         updateLight();
 
-        const gui = new GUI();
+
         gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color')
         gui.add(light, 'intensity', 0, 5, 0.01);
 
@@ -132,4 +132,5 @@ export default (threeRef) => {
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
+    return { gui }
 }

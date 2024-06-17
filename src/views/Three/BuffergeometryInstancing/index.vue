@@ -3,13 +3,20 @@
         <div ref="BuffergInstacingRef"></div>
     </div>
 </template>
-<script  setup>
-import { ref, onMounted } from 'vue'
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import initBuffergInstacing from './threeInit/initBuffergInstacing';
 const BuffergInstacingRef = ref()
-
+let gui;
 onMounted(() => {
-    initBuffergInstacing(BuffergInstacingRef)
+    gui = initBuffergInstacing(BuffergInstacingRef).gui
+})
+
+onUnmounted(() => {
+    if (gui) {
+        gui.destroy();
+        gui = null;
+    }
 })
 </script>
 <style scoped lang='scss'></style>

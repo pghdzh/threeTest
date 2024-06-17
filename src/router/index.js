@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import transitionRoute from './moudal/transitionRoute';
+import threeRoute from './moudal/threeRoute';
+import echartsRoute from './moudal/echartsRoute';
 NProgress.configure({ showSpinner: false }); // NProgress Configuration 刷新页面头部进度条
 
 const router = createRouter({
@@ -15,94 +18,11 @@ const router = createRouter({
       path: '/layout',
       name: 'layout',
       component: () => import('@/views/Layout/index.vue'),
-      redirect: '/layout/three/threeTest3',
+      redirect: '/three/threeTest3',
       children: [
-        {
-          path: '/layout/transition/smallCat',
-          name: 'smallCat',//猫
-          component: () => import('@/views/Transition/SmallCat/index.vue')
-        },
-        {
-          path: '/layout/echarts/3dMap',
-          name: '3dMap',//3d地图
-          component: () => import('@/views/Echarts/3dMap/index.vue')
-        },
-        {
-          path: '/layout/echarts/wordCloud',
-          name: 'wordCloud',//词云
-          component: () => import('@/views/Echarts/wordCloud/index.vue')
-        },
-        {
-          path: '/layout/three/threeTest3',
-          name: 'threeTest3',//图元
-          component: () => import('@/views/Three/test3/index.vue')
-        },
-        {
-          path: '/layout/three/scene',
-          name: 'threeScene',//场景
-          component: () => import('@/views/Three/Scene/index.vue')
-        },
-        {
-          path: '/layout/three/light',
-          name: 'threeLight',//灯光
-          component: () => import('@/views/Three/Light/index.vue')
-        },
-        {
-          path: '/layout/three/camera',
-          name: 'threeCamera',//相机
-          component: () => import('@/views/Three/Camera/index.vue')
-        },
-        {
-          path: '/layout/three/shadow',
-          name: 'shadow',//阴影
-          component: () => import('@/views/Three/Shadow/index.vue')
-        },
-        {
-          path: '/layout/three/fog',
-          name: 'fog',//雾
-          component: () => import('@/views/Three/fog/index.vue')
-        },
-        {
-          path: '/layout/three/gift',
-          name: 'gift',//导入gift
-          component: () => import('@/views/Three/Gift/index.vue')
-        },
-        {
-          path: '/layout/three/starryNight',//粒子
-          name: 'starryNight',
-          component: () => import('@/views/Three/StarryNight/index.vue')
-        },
-        {
-          path: '/layout/three/BuffergInstacing',//大量实例化缓冲几何体
-          name: 'BuffergInstacing',
-          component: () => import('@/views/Three/BuffergeometryInstancing/index.vue')
-        },
-        {
-          path: '/layout/three/snowflake',//雪花
-          name: 'snowflake',
-          component: () => import('@/views/Three/snowflake/index.vue')
-        },
-        {
-          path: '/layout/three/misc_lookAt',//视线追踪
-          name: 'lookAt',
-          component: () => import("@/views/Three/misc_lookAt/index.vue")
-        },
-        {
-          path: '/layout/three/fantasticalCube',//奇幻正方体
-          name: 'fantasticalCube',
-          component: () => import("@/views/Three/fantasticalCube/index.vue")
-        },
-        {
-          path: '/layout/three/orbit',//轨道控制器
-          name: 'orbit',
-          component: () => import("@/views/Three/orbit/index.vue")
-        },
-        {
-          path: '/layout/three/css3d_periodictable',//元素周期表
-          name: 'periodictable',
-          component: () => import('@/views/Three/css3d_periodictable/index.vue')
-        },
-
+        ...echartsRoute,
+        ...threeRoute,
+        ...transitionRoute,
       ]
     },
 
