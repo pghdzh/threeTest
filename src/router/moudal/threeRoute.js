@@ -69,4 +69,19 @@ export default [
         name: 'periodictable',
         component: () => import('@/views/Three/css3d_periodictable/index.vue')
     },
+    {
+        path: '/three/starryNight1',
+        name: 'starryNight1',//星空
+        component: () => import("@/views/Three/starryNight1/index.vue")
+    },
+    {
+        path: "/three/sea",
+        name: 'sea',//大海
+        component: () => import("@/views/Three/sea/index.vue")
+    },
+    {
+        path: '/three/shader',
+        name: 'shader',//着色器
+        component: () => import("@/views/Three/shader/index.vue")
+    }
 ]

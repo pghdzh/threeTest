@@ -48,6 +48,9 @@ const leftNavData = ref(
             { path: '/three/fantasticalCube', name: '奇幻正方体' },
             { path: '/three/orbit', name: '轨道控制器', },
             { path: '/three/css3d_periodictable', name: '元素周期表' },
+            { path: '/three/starryNight1', name: '星空' },
+            { path: '/three/sea', name: '大海' },
+            { path: '/three/shader', name: '着色器' }
         ]
     },
     {
