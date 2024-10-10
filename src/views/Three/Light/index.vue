@@ -35,13 +35,13 @@ onUnmounted(() => {
         gui2.destroy();
         gui2 = null;
     }
-    if (gui2) {
-        gui2.destroy();
-        gui2 = null;
+    if (gui3) {
+        gui3.destroy();
+        gui3 = null;
     }
-    if (gui2) {
-        gui2.destroy();
-        gui2 = null;
+    if (gui4) {
+        gui4.destroy();
+        gui4 = null;
     }
 })
 </script>
